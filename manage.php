@@ -94,72 +94,86 @@ $result = mysqli_query($conn, $view_user_details_sql);
 
                                     if(mysqli_num_rows($search_view_result) > 0){
                                         echo '<table class="table table-bordered table-striped">';
-                                        echo "<thead>";
-                                        echo "<tr>";
-                                        echo "<th>Name</th>";
-                                        echo "<th>Email</th>";
-                                        echo "<th>Gender</th>";
-                                        echo "<th>Content</th>";
-                                        echo "<th>Action</th>";
-                                        echo "</tr>";
-                                        echo "</thead>";
-                                        echo "<tbody>";
-                                        while($rows = $search_view_result->fetch_assoc()){
-                                            echo "<tr>";
-                                            echo "<td>" . $rows['user_name'] . "</td>";
-                                            echo "<td>" . $rows['user_email'] . "</td>";
-                                            echo "<td>" . $rows['user_gender'] . "</td>";
-                                            echo "<td>" . $rows['user_content'] . "</td>";
-                                            echo "<td>";
-                                            echo '<a href="delete.php?user_id='. $rows['user_id'] .'" title="Delete User" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                            echo "</td>";
-                                            echo "</tr>";
-                                        }
-                                        echo "</tbody>";
+                                            echo "<thead>";
+                                                echo "<tr>";
+                                                    echo "<th>Name</th>";
+                                                    echo "<th>Surname</th>";
+                                                    echo "<th>Email</th>";
+                                                    echo "<th>Mobile</th>";
+                                                    echo "<th>DoB</th>";
+                                                    echo "<th>Language</th>";
+                                                    echo "<th>Interests</th>";
+                                                    echo "<th>Action</th>";
+                                                echo "</tr>";
+                                            echo "</thead>";
+                                            echo "<tbody>";
+                                            while($rows = $search_view_result->fetch_assoc()){
+                                                echo "<tr>";
+                                                    echo "<td>" . $rows['user_name'] . "</td>";
+                                                    echo "<td>" . $rows['user_surname'] . "</td>";
+                                                    echo "<td>" . $rows['user_email'] . "</td>";
+                                                    echo "<td>" . $rows['user_mobile'] . "</td>";
+                                                    echo "<td>" . $rows['user_dob'] . "</td>";
+                                                    echo "<td>" . $rows['user_language'] . "</td>";
+                                                    echo "<td>" . $rows['user_interests'] . "</td>";
+                                                    echo "<td>";
+                                                    echo '<a href="delete.php?user_id='. $rows['user_id'] .'" title="Delete User" class="mr-3" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                                    echo '<a href="update.php?user_id='. $rows['user_id'] .'" title="Update User" data-toggle="tooltip"><span class="fa fa-pencil-square-o"></span></a>';
+                                                    echo "</td>";
+                                                echo "</tr>";
+                                            }
+                                            echo "</tbody>";
                                         echo "</table>";
                                     }else{
                                         echo '<table class="table table-bordered table-striped">';
-                                        echo "<thead>";
-                                        echo "<tr>";
-                                        echo "<th>Name</th>";
-                                        echo "<th>Email</th>";
-                                        echo "<th>Gender</th>";
-                                        echo "<th>Content</th>";
-                                        echo "<th>Action</th>";
-                                        echo "</tr>";
-                                        echo "</thead>";
-                                        echo "<tbody>";
-                                        echo "<tr>";
-                                        echo "<td colspan='5' style='text-align: center'> No Data Matching Your Search </td>";
-                                        echo "</tr>";
-                                        echo "</tbody>";
+                                            echo "<thead>";
+                                                echo "<tr>";
+                                                    echo "<th>Name</th>";
+                                                    echo "<th>Email</th>";
+                                                    echo "<th>Gender</th>";
+                                                    echo "<th>Content</th>";
+                                                    echo "<th>Action</th>";
+                                                echo "</tr>";
+                                            echo "</thead>";
+                                            echo "<tbody>";
+                                                echo "<tr>";
+                                                    echo "<td colspan='5' style='text-align: center'> No Data Matching Your Search </td>";
+                                                echo "</tr>";
+                                            echo "</tbody>";
                                         echo "</table>";
                                     }
                                 }else{
                                     if(mysqli_num_rows($result) > 0){
                                         echo '<table class="table table-bordered table-striped">';
-                                        echo "<thead>";
-                                        echo "<tr>";
-                                        echo "<th>Name</th>";
-                                        echo "<th>Email</th>";
-                                        echo "<th>Gender</th>";
-                                        echo "<th>Content</th>";
-                                        echo "<th>Action</th>";
-                                        echo "</tr>";
-                                        echo "</thead>";
-                                        echo "<tbody>";
-                                        while($row = $result->fetch_assoc()){
-                                            echo "<tr>";
-                                            echo "<td>" . $row['user_name'] . "</td>";
-                                            echo "<td>" . $row['user_email'] . "</td>";
-                                            echo "<td>" . $row['user_gender'] . "</td>";
-                                            echo "<td>" . $row['user_content'] . "</td>";
-                                            echo "<td>";
-                                            echo '<a href="delete.php?user_id='. $row['user_id'] .'" title="Delete Fish" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                            echo "</td>";
-                                            echo "</tr>";
-                                        }
-                                        echo "</tbody>";
+                                            echo "<thead>";
+                                                echo "<tr>";
+                                                    echo "<th>Name</th>";
+                                                    echo "<th>Surname</th>";
+                                                    echo "<th>Email</th>";
+                                                    echo "<th>Mobile</th>";
+                                                    echo "<th>DoB</th>";
+                                                    echo "<th>Language</th>";
+                                                    echo "<th>Interests</th>";
+                                                    echo "<th>Action</th>";
+                                                echo "</tr>";
+                                            echo "</thead>";
+                                            echo "<tbody>";
+                                            while($row = $result->fetch_assoc()){
+                                                echo "<tr>";
+                                                    echo "<td>" . $row['user_name'] . "</td>";
+                                                    echo "<td>" . $row['user_surname'] . "</td>";
+                                                    echo "<td>" . $row['user_email'] . "</td>";
+                                                    echo "<td>" . $row['user_mobile'] . "</td>";
+                                                    echo "<td>" . $row['user_dob'] . "</td>";
+                                                    echo "<td>" . $row['user_language'] . "</td>";
+                                                    echo "<td>" . $row['user_interests'] . "</td>";
+                                                    echo "<td>";
+                                                        echo '<a href="delete.php?user_id='. $row['user_id'] .'" title="Delete User" class="mr-3" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                                        echo '<a href="update.php?user_id='. $row['user_id'] .'" title="Update User" data-toggle="tooltip"><span class="fa fa-pencil-square-o"></span></a>';
+                                                    echo "</td>";
+                                                echo "</tr>";
+                                            }
+                                            echo "</tbody>";
                                         echo "</table>";
                                     }
                                 }

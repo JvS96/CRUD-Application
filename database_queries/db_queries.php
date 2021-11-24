@@ -30,12 +30,12 @@ class database_queries{
         return $sql;
     }
     //Add New User Function
-    public function new_user($user_name, $user_email, $user_gender, $user_coment){
+    public function new_user($user_name, $user_surname, $user_sa_id, $user_mobile, $user_email, $user_password, $user_dob, $user_language, $user_interests){
         $sql = "
             INSERT INTO
-                `tbl_user` (`user_id`, `user_name`, `user_email`, `user_gender`, `user_content`)
+                `tbl_user` (`user_id`, `user_name`, `user_surname`, `user_sa_id`, `user_mobile`, `user_email`, `user_password`, `user_dob`, `user_language`, `user_interests`)
             VALUES
-                (NULL, '$user_name', '$user_email', '$user_gender', '$user_coment')
+                (NULL, '$user_name', '$user_surname', '$user_sa_id', '$user_mobile', '$user_email', '$user_password', '$user_dob', '$user_language', '$user_interests')
         ";
         return $sql;
     }
@@ -44,6 +44,26 @@ class database_queries{
         $sql = "
             DELETE FROM 
                 `tbl_user`
+            $condition
+        ";
+        return $sql;
+    }
+    //Update User
+    public function update_user($user_id, $user_name, $user_surname, $user_sa_id, $user_mobile, $user_email, $user_password, $user_dob, $user_language, $user_interests,$condition = ""){
+        $sql = "
+            UPDATE 
+                `tbl_user`
+            SET 
+                user_id = '$user_id', 
+                user_name = '$user_name', 
+                user_surname = '$user_surname', 
+                user_sa_id = '$user_sa_id', 
+                user_mobile = '$user_mobile', 
+                user_email = '$user_email',
+                user_password = '$user_password',
+                user_dob = '$user_dob',
+                user_language = '$user_language',
+                user_interests = '$user_interests'
             $condition
         ";
         return $sql;

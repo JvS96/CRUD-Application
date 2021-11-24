@@ -2,11 +2,21 @@
 session_start();
 //Include
 include $_SERVER['DOCUMENT_ROOT'].'/database_queries/db_queries.php';
-//Class
-$insert_new_user = new database_queries();
+//Session Info
+if(empty($_SESSION['user_name'])){
+    die('<script>
+            alert("User needs to login.");
+            window.location = "index.php";
+         </script>');
+}
 
-//Insert user to database
-if(isset($_POST['btn-insert'])){
+//Class call
+$view_user_details = new database_queries();
+
+if(isset($_POST["user_id"]) && !empty($_POST["user_id"])){ //Update Users
+    echo "hello";
+    // Retrieve individual field value
+    $user_id = $_POST["user_id"];
     $user_name = $_POST['user_name'];
     $user_surname = $_POST['user_surname'];
     $user_sa_id = $_POST['user_sa_id'];
@@ -17,30 +27,50 @@ if(isset($_POST['btn-insert'])){
     $user_language = $_POST['user_language'];
     $user_interests = $_POST['user_interests'];
 
-    $insert_new_user_sql = $insert_new_user->new_user("$user_name", "$user_surname", "$user_sa_id", "$user_mobile", "$user_email", "$user_password", "$user_dob", "$user_language", "$user_interests");
-    $result = mysqli_query($conn, $insert_new_user_sql);
 
+    //Call function
+    $update_user_details_sql = $view_user_details->update_user("$user_id","$user_name", "$user_surname", "$user_sa_id", "$user_mobile", "$user_email", "$user_password", "$user_dob", "$user_language", "$user_interests","WHERE user_id = ".$_POST["user_id"]);
+    $result = mysqli_query($conn, $update_user_details_sql);
     if($result){
-        $to_email_address = $user_email;
-        $subject = 'Testing PHP Mail';
-        $message = 'This mail is sent using the PHP mail function';
-        $headers = 'From: noreply@testmail.com';
-        mail($to_email_address,$subject,$message,$headers);
-
         die('<script>
-                alert("Account Successfully created.");
-                window.location = "manage.php";
-            </script>');
-
+            alert("User updated successfully.");
+            window.location = "manage.php";
+         </script>');
     }else{
         die('<script>
-                alert("There was a problem creating the user.");
-                window.location = "create_user.php";
-             </script>');
+            alert("Something went wrong.");
+            window.location = "update.php";
+         </script>');
     }
-}
-?>
 
+
+}else{ //View Users
+
+    //Call function
+    $view_user_details_sql = $view_user_details->view_user();
+    $result = mysqli_query($conn, $view_user_details_sql);
+
+    if(mysqli_num_rows($result) == 1){
+        /* Fetch result row as an associative array. Since the result set
+        contains only one row, we don't need to use while loop */
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        // Retrieve individual field value
+        $user_id = $row["user_id"];
+        $user_name = $row['user_name'];
+        $user_surname = $row['user_surname'];
+        $user_sa_id = $row['user_sa_id'];
+        $user_mobile = $row['user_mobile'];
+        $user_email = $row['user_email'];
+        $user_password = $row['user_password'];
+        $user_dob = $row['user_dob'];
+        $user_language = $row['user_language'];
+        $user_interests = $row['user_interests'];
+    }
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -79,7 +109,7 @@ if(isset($_POST['btn-insert'])){
             <div class="wrapper">
                 <div class="container-fluid">
                     <div class="align-center">
-                        <h2>Create a New Account</h2>
+                        <h2>Update User Account</h2>
                     </div>
                 </div>
             </div>
@@ -108,37 +138,37 @@ if(isset($_POST['btn-insert'])){
                                 <div class="row">
                                     <div class="col-md-6">
                                         <strong>First Name:</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_name" required>
+                                        <input style="width: 100%;" type="text" name="user_name" value="<?php echo $user_name; ?>" required>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Last Name:</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_surname" required>
+                                        <input style="width: 100%;" type="text" name="user_surname" value="<?php echo $user_surname; ?>" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <strong>South Africa ID:</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_sa_id" required>
+                                        <input style="width: 100%;" type="text" name="user_sa_id" value="<?php echo $user_sa_id; ?>" required>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Mobile Number:</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_mobile" required>
+                                        <input style="width: 100%;" type="text" name="user_mobile" value="<?php echo $user_mobile; ?>" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <strong>Email:</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_email" required>
+                                        <input style="width: 100%;" type="text" name="user_email" value="<?php echo $user_email; ?>" required>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Password:</strong><br>
-                                        <input style="width: 100%;" type="password" name="user_password" required>
+                                        <input style="width: 100%;" type="password" name="user_password" value="<?php echo $user_password; ?>" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <strong>Date of Birth:</strong><br>
-                                        <input style="width: 100%;" type="date" name="user_dob" required>
+                                        <input style="width: 100%;" type="date" name="user_dob" value="<?php echo $user_dob; ?>" required>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Language:</strong><br>
@@ -165,7 +195,8 @@ if(isset($_POST['btn-insert'])){
                                 </div>
                                 <div class="row margin-class-top">
                                     <div class="col-md-12">
-                                        <input style="width: 100%" type="submit" name="btn-insert" class="btn btn-success" value="Insert User">
+                                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>"/>
+                                        <input style="width: 100%" type="submit" name="btn-update" class="btn btn-success" value="Update User">
                                     </div>
                                 </div>
                             </form>

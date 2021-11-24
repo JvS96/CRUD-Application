@@ -18,19 +18,8 @@ class database_queries{
         ";
         return $sql;
     }
-    //Individual User View Function
+    //User View Function
     public function view_user($condition = ""){
-        $sql = "
-            SELECT 
-                   * 
-            FROM 
-                   `tbl_user`
-            $condition
-        ";
-        return $sql;
-    }
-    //Search User View Function
-    public function search_user($condition = ""){
         $sql = "
             SELECT 
                    * 

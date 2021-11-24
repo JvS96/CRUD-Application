@@ -1,6 +1,7 @@
 <?php
+session_start();
 //Include
-include(dirname(__DIR__).'/config/database_queries/db_queries.php');
+include $_SERVER['DOCUMENT_ROOT'].'/database_queries/db_queries.php';
 //Class
 $insert_new_user = new database_queries();
 
@@ -22,19 +23,17 @@ if(isset($_POST['btn-insert'])){
         mail($to_email_address,$subject,$message,$headers);
 
         die('<script>
-            alert("Account Successfully created.");
-            window.location = "manage.php";
-         </script>');
+                alert("Account Successfully created.");
+                window.location = "manage.php";
+            </script>');
 
     }else{
         die('<script>
-            alert("There was a problem creating the user.");
-            window.location = "create_user.php";
-         </script>');
+                alert("There was a problem creating the user.");
+                window.location = "create_user.php";
+             </script>');
     }
-
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -75,40 +74,76 @@ if(isset($_POST['btn-insert'])){
             <div class="wrapper">
                 <div class="container-fluid">
                     <div class="align-center">
-                        <h2>Create a New User</h2>
+                        <h2>Create a New Account</h2>
                     </div>
                 </div>
             </div>
             <div class="wrapper">
-                <div class="row">
-                    <div class="container">
-                        <a href="manage.php" class="btn btn-secondary pull-right" style="width: 100%;"><i class="fa fa-undo"></i> Go Back</a>
+                <?php
+                if(empty($_SESSION['user_name'])){ ?>
+                    <div class="row">
+                        <div class="container">
+                            <a href="index.php" class="btn btn-secondary pull-right" style="width: 100%;"><i class="fa fa-undo"></i> Go Back</a>
+                        </div>
                     </div>
-                </div>
+                <?php
+                }else{ ?>
+                    <div class="row">
+                        <div class="container">
+                            <a href="manage.php" class="btn btn-secondary pull-right" style="width: 100%;"><i class="fa fa-undo"></i> Go Back</a>
+                        </div>
+                    </div>
+                <?php
+                    }
+                ?>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="container margin-class-top" style="border: 1px dotted;padding: 5%;">
                             <form method="POST">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <strong>Username</strong><br>
+                                        <strong>First Name:</strong><br>
                                         <input style="width: 100%;" type="text" name="user_name" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <strong>Gender</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_gender" required>
+                                        <strong>Last Name:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
                                     </div>
                                 </div>
-                                <div class="row margin-class-top">
-                                    <div class="col-md-12">
-                                        <strong>Email</strong><br>
-                                        <input style="width: 100%;" type="email" name="user_email" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>South Africa ID:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Mobile Number:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
                                     </div>
                                 </div>
-                                <div class="row margin-class-top">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Email:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Password:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Date of Birth:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Language:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
-                                        <strong>Comment</strong><br>
-                                        <input style="width: 100%;" type="text" name="user_comment" required>
+                                        <strong>Interest:</strong><br>
+                                        <input style="width: 100%;" type="text" name="user_name" required>
                                     </div>
                                 </div>
                                 <div class="row margin-class-top">

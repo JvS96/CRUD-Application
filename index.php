@@ -1,7 +1,7 @@
 <?php
 session_start();
 //Include
-include(dirname(__DIR__).'/config/database_queries/db_queries.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/database_queries/db_queries.php';
 //Class
 $user_login_details = new database_queries();
 
@@ -87,6 +87,11 @@ if(isset($_POST['btn-login'])) {
                                     <div class="row margin-class-top">
                                         <div class="col-md-12">
                                             <input style="width: 100%" type="submit" name="btn-login" class="btn btn-success" value="Login">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-class-top">
+                                        <div class="col-md-12">
+                                            <strong>Don't have an account?</strong><a href="create_user.php"> Please register here.</a>
                                         </div>
                                     </div>
                                 </form>

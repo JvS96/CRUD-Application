@@ -3,7 +3,7 @@
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "";
-$connection_db = "db_socialplaces";
+$connection_db = "db_propay";
 
 // Create connection
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $connection_db) or die("Connect failed: %s\n" . $conn->error);

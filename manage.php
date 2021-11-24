@@ -1,7 +1,8 @@
 <?php
 session_start();
 //Include
-include(dirname(__DIR__).'/config/database_queries/db_queries.php');
+include $_SERVER['DOCUMENT_ROOT'].'/database_queries/db_queries.php';
+
 if(empty($_SESSION['user_name'])){
     die('<script>
             alert("User needs to login.");
@@ -21,11 +22,6 @@ $view_user_details = new database_queries();
 //Call function
 $view_user_details_sql = $view_user_details->view_user();
 $result = mysqli_query($conn, $view_user_details_sql);
-
-//View Users -> Order By
-//Call Function
-$order_user_details_sql = $view_user_details->view_user("ORDER BY user_gender");
-$order_view_result = mysqli_query($conn, $order_user_details_sql);
 
 ?>
 <!DOCTYPE html>
@@ -89,12 +85,11 @@ $order_view_result = mysqli_query($conn, $order_user_details_sql);
                         <div class="container">
                             <div class="row margin-class-top">
                                 <?php
-
                                 if(isset($_POST['search-btn'])) {
                                     $search_value = $_POST['search'];
 
                                     //Call function
-                                    $search_user_details_sql = $view_user_details->search_user("WHERE user_name LIKE '%{$search_value}%'");
+                                    $search_user_details_sql = $view_user_details->view_user("WHERE user_name LIKE '%{$search_value}%'");
                                     $search_view_result = mysqli_query($conn, $search_user_details_sql);
 
                                     if(mysqli_num_rows($search_view_result) > 0){

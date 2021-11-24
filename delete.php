@@ -1,6 +1,13 @@
 <?php
+session_start();
+if(empty($_SESSION['user_name'])){
+    die('<script>
+            alert("You dont belong here.");
+            window.location = "index.php";
+         </script>');
+}
 //Include
-include(dirname(__DIR__).'/config/database_queries/db_queries.php');
+include $_SERVER['DOCUMENT_ROOT'].'/database_queries/db_queries.php';
 
 $delete_user_details = new database_queries();
 $delete_user_details_sql = $delete_user_details->delete_user("WHERE user_id = " . $_GET['user_id']);

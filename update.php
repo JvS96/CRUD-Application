@@ -5,16 +5,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/database_queries/db_queries.php';
 //Session Info
 if(empty($_SESSION['user_name'])){
     die('<script>
-            alert("User needs to login.");
-            window.location = "index.php";
-         </script>');
+        alert("User needs to login.");
+        window.location = "index.php";
+    </script>');
 }
 
 //Class call
-$view_user_details = new database_queries();
+$user_details = new database_queries();
 
 if(isset($_POST["user_id"]) && !empty($_POST["user_id"])){ //Update Users
-    echo "hello";
     // Retrieve individual field value
     $user_id = $_POST["user_id"];
     $user_name = $_POST['user_name'];
@@ -27,27 +26,24 @@ if(isset($_POST["user_id"]) && !empty($_POST["user_id"])){ //Update Users
     $user_language = $_POST['user_language'];
     $user_interests = $_POST['user_interests'];
 
-
     //Call function
-    $update_user_details_sql = $view_user_details->update_user("$user_id","$user_name", "$user_surname", "$user_sa_id", "$user_mobile", "$user_email", "$user_password", "$user_dob", "$user_language", "$user_interests","WHERE user_id = ".$_POST["user_id"]);
+    $update_user_details_sql = $user_details->update_user("$user_id", "$user_name", "$user_surname", "$user_sa_id", "$user_mobile", "$user_email", "$user_password", "$user_dob", "$user_language", "$user_interests","WHERE user_id = ".$_POST["user_id"]);
     $result = mysqli_query($conn, $update_user_details_sql);
     if($result){
         die('<script>
             alert("User updated successfully.");
             window.location = "manage.php";
-         </script>');
+        </script>');
     }else{
         die('<script>
             alert("Something went wrong.");
             window.location = "update.php";
-         </script>');
+        </script>');
     }
-
-
 }else{ //View Users
 
     //Call function
-    $view_user_details_sql = $view_user_details->view_user();
+    $view_user_details_sql = $user_details->view_user();
     $result = mysqli_query($conn, $view_user_details_sql);
 
     if(mysqli_num_rows($result) == 1){
@@ -67,7 +63,6 @@ if(isset($_POST["user_id"]) && !empty($_POST["user_id"])){ //Update Users
         $user_language = $row['user_language'];
         $user_interests = $row['user_interests'];
     }
-
 }
 
 ?>
